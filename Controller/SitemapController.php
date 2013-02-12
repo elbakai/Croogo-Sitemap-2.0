@@ -101,7 +101,14 @@ class SitemapController extends SitemapAppController {
     }
 
     function __getConditions() {
-        return array('Node.status =' => 1, 'Node.type' => array_values(preg_split('/,\s*/', $this->defaults['types']['value'])));
+        return array(
+            'Node.status =' => 1,
+            'Node.type' => array_values(preg_split('/,\s*/', $this->defaults['types']['value'])),
+            'OR' => array(
+                    'Node.visibility_roles' => '',
+                    'Node.visibility_roles LIKE' => '%"' . $this->Croogo->roleId . '"%',
+            )
+        );
     }
 
 }
