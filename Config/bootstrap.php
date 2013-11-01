@@ -21,7 +21,7 @@ Croogo::hookComponent('*', 'Sitemap.Sitemap');
  */
 Croogo::hookAdminMenu('Sitemap');
 
-CroogoNav::add('admin.children.extensions.children.sitemap', array(
+CroogoNav::add('extensions.children.sitemap', array(
     'title' => __('Sitemap'),
     'url' => array(
         'plugin' => 'sitemap',
@@ -29,16 +29,7 @@ CroogoNav::add('admin.children.extensions.children.sitemap', array(
         'controller' => 'sitemap',
         'action' => 'index',
     ),
-    'children' => array(
-        'options' => array(
-            'title' => 'Options',
-            'url' => array(
-                'plugin' => 'sitemap',
-                'admin' => true,
-                'controller' => 'sitemap',
-                'action' => 'index',
-            )
-        )
-    ),
+    'weight' => 41,
 ));
+
 ?>
