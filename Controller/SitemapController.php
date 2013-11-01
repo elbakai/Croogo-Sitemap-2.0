@@ -17,7 +17,7 @@ class SitemapController extends SitemapAppController {
      * @var string
      * @access public
      */
-    var $name = 'Sitemap';
+    public $name = 'Sitemap';
 
     /**
      * Models used by the Controller
@@ -25,15 +25,15 @@ class SitemapController extends SitemapAppController {
      * @var array
      * @access public
      */
-    var $uses = array('Node');
-    var $components = array('RequestHandler');
+    public $uses = array('Nodes.Node');
+    public $components = array('RequestHandler');
     public $helpers = array('Time');
-    var $defaults = array();
+    public $defaults = array();
 
-    function beforeFilter() {
+    public function beforeFilter() {
         parent::beforeFilter();
 
-        $settings = & ClassRegistry::init('Setting');
+        $settings = ClassRegistry::init('Setting');
         $this->defaults['changefreq'] = $settings->find('all', array('conditions' => array('Setting.key =' => 'Sitemap.changefreq'), 'fields' => array('Setting.id', 'Setting.value')));
         $this->defaults['priority'] = $settings->find('all', array('conditions' => array('Setting.key =' => 'Sitemap.priority'), 'fields' => array('Setting.id', 'Setting.value')));
         $this->defaults['types'] = $settings->find('all', array('conditions' => array('Setting.key =' => 'Sitemap.types'), 'fields' => array('Setting.id', 'Setting.value')));
@@ -48,10 +48,10 @@ class SitemapController extends SitemapAppController {
         }
     }
 
-    function admin_index() {
+    public function admin_index() {
 
         if (!empty($this->data)) {
-            $settings = & ClassRegistry::init('Setting');
+            $settings = ClassRegistry::init('Setting');
             foreach ($this->data['Sitemap'] as $key => $setting) {
                 $settings->id = $setting['id'];
                 $settings->saveField('value', $setting['value']);
@@ -62,7 +62,7 @@ class SitemapController extends SitemapAppController {
         $this->set('inputs', $this->defaults);
     }
 
-    function index() {
+    public function index() {
 
         $this->pageTitle = __('Sitemap', true);
 
@@ -73,7 +73,7 @@ class SitemapController extends SitemapAppController {
         $this->set(compact('sitemapData'));
     }
 
-    function xml() {
+    public function xml() {
         Configure::write('debug', 0);
 
         $this->layout = 'xml/default';
@@ -87,7 +87,7 @@ class SitemapController extends SitemapAppController {
         $this->RequestHandler->respondAs('xml');
     }
 
-    function __getSiteMapData($data) {
+    public function __getSiteMapData($data) {
         $sitemapData = array();
         //debug($nodes);
         foreach ($data as $key => $d) {
@@ -100,7 +100,7 @@ class SitemapController extends SitemapAppController {
         return $sitemapData;
     }
 
-    function __getConditions() {
+    public function __getConditions() {
         return array(
             'Node.status =' => 1,
             'Node.type' => array_values(preg_split('/,\s*/', $this->defaults['types']['value'])),
