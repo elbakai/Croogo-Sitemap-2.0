@@ -7,8 +7,9 @@
         <priority>1</priority>
     </url>
     <?php
+    $allowedTypes = array_values(preg_split('/,\s*/', $defaults['types']['value']));
     foreach ($sitemapData as $node):
-        if ($node['Node']['type'] == "page" | $node['Node']['type'] == 'node' | $node['Node']['type'] == 'blog'):
+        if (in_array($node['Node']['type'], $allowedTypes)):
             ?>
             <url>
                 <loc> <?php echo Router::url('/', true) . ltrim($node['Node']['path'], '/'); ?> </loc>
@@ -22,4 +23,4 @@
             </url>
     <?php endif;
 endforeach; ?>
-</urlset> 
+</urlset>

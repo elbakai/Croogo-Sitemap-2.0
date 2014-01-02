@@ -4,7 +4,7 @@
     <ul>
     <?php
         foreach ($sitemapData as $node) {
-            echo "<li>".$this->Html->link($node['Node']['title'],$node['Node']['path'])."</li>" ;   
+            echo "<li>".$this->Html->link($node['Node']['title'],$node['Node']['url'])."</li>" ;
         }
     ?>
     </ul>
