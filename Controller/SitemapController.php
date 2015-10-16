@@ -93,6 +93,7 @@ class SitemapController extends SitemapAppController {
         foreach ($data as $key => $d) {
             $sitemapData[$key]['Node']['title'] = $d['Node']['title'];
             $sitemapData[$key]['Node']['path'] = $d['Node']['path'];
+            $sitemapData[$key]['Node']['url'] = $d['Node']['url'];
             $sitemapData[$key]['Node']['type'] = $d['Node']['type'];
             $sitemapData[$key]['Node']['CustomFields'] = $d['CustomFields'];
         }
